@@ -14,7 +14,10 @@ const mongoDB_URI = `mongodb+srv://${mongoUserName}:${password}@${clusterName}.m
 // console.log(mongoDB_URI);
 
 mongoose
-  .connect(mongoDB_URI)
+  .connect(mongoDB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
   .then(() => console.log("Database connected!"))
   .catch((err) => console.log(`Error connecting to database! `, err));
 
