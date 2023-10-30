@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { users } = require("../../models");
+const joi = require("joi");
 
 async function register(req, res) {
   try {
@@ -43,6 +44,20 @@ async function register(req, res) {
         message: "Shop item update failed due to datatype mismatch",
       });
     }
+
+    // joi validation
+    const registerValidationSchema = joi.object({
+      fullName: joi.string().required(),
+      userName: joi.string().required(),
+      role: joi.string(),
+      password: joi.string().min(6).required(),
+    });
+
+    const { error: registerValidationError } =
+      registerValidationSchema.validate(req.body);
+
+    if (registerValidationError) return res.send(registerValidationError);
+    // joi validation ends here
 
     const existingUserName = await users.findOne({ userName });
 

@@ -34,3 +34,5 @@ app.use("/auth", authRoute);
 app.use("/shop", shopRoute);
 
 app.listen(port, () => console.log("listening on port", port));
+
+module.exports = { app, mongoose };
