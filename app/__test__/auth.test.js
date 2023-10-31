@@ -1,23 +1,18 @@
 const axios = require("axios");
+// const { app, server, mongoose } = require("../../index");
+// const { users } = require("../models");
 
-// in package.json
-/*   "scripts": {
-    "test": "npx jest"
-  }, 
-
-  npm run text
-*/
 
 const registerBody = {
   fullName: "moon Doe",
-  userName: "fantaice",
-  password: "fantaice",
+  userName: "nancyfancy",
+  password: "nancyfancy",
   role: "admin",
 }
 
 const loginBody =  {
-  userName: "fantaice",
-  password: "fantaice",
+  userName: "nancyfancy",
+  password: "nancyfancy",
 }
 
 const itemBody =  {
@@ -30,11 +25,10 @@ const itemBody =  {
 let token;
 let itemId;
 
-const Authorization =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2NTQwMzIwZjE1NWZiOTM2Yzg0Mjk5YTMiLCJ1c2VyTmFtZSI6ImhlbnJ5MTIzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjk4NzUyNjM0fQ.ayHUpZDEKJkmBVLf1ZmNMqpuYDVbDUyPZ3CuhIai4Ok";
 
 // register
 test("for successful registration", async () => {
+  
   try {
     const response = await axios.post("http://localhost:4000/auth/register", registerBody,
     {
@@ -46,7 +40,6 @@ test("for successful registration", async () => {
     expect(response.status).toBe(201);
     expect(response.data.success).toBe(true);
   } catch (error) {
-    console.log("Error:", error);
   }
 });
 
@@ -65,7 +58,6 @@ test("for successful login", async () => {
     expect(response.status).toBe(200);
     expect(response.data.success).toBe(true);
   } catch (error) {
-    console.log("Error:", error);
   }
 });
 
@@ -139,3 +131,4 @@ test("for successful deletion", async () => {
     expect(response.data.success).toBe(true);
   } catch (error) {}
 });
+
