@@ -5,18 +5,18 @@ const axios = require("axios");
 
 const registerBody = {
   fullName: "moon Doe",
-  userName: "nancyfancy",
-  password: "nancyfancy",
+  userName: "mandy46",
+  password: "mandy46",
   role: "admin",
 }
 
 const loginBody =  {
-  userName: "nancyfancy",
-  password: "nancyfancy",
+  userName: "mandy46",
+  password: "mandy46",
 }
 
 const itemBody =  {
-  itemsName: "fan",
+  itemsName: "fan6666",
   description: "Buy this fan",
   price: 8000,
   isInStock: true,
@@ -36,7 +36,7 @@ test("for successful registration", async () => {
         "Content-Type": "application/json",
       },
     });
-
+   
     expect(response.status).toBe(201);
     expect(response.data.success).toBe(true);
   } catch (error) {
@@ -53,7 +53,8 @@ test("for successful login", async () => {
       },
     });
 
-    token = response.body.token;
+    token = response.data.token;
+   
 
     expect(response.status).toBe(200);
     expect(response.data.success).toBe(true);
@@ -64,9 +65,9 @@ test("for successful login", async () => {
 // Add a item
 test("for adding an item to your cart", async () => {
   try {
-    if (!token) {
-      throw new Error("Token is not available from the login test");
-    }
+    // if (!token) {
+    //   throw new Error("Token is not available from the login test");
+    // }
 
     const response = await axios.post(
       "http://localhost:4000/shop/add-item", itemBody,
@@ -78,7 +79,8 @@ test("for adding an item to your cart", async () => {
       }
     );
 
-    itemId = response.body.data?.item._id;
+    itemId = response.data?.data?.newItem?._id;
+    console.log(response.data, itemId, response.data.data)
 
     expect(response.status).toBe(201);
     expect(response.data.success).toBe(true);
@@ -117,6 +119,8 @@ test("for successful deletion", async () => {
       );
     }
 
+    console.log(itemId)
+
     const response = await axios.delete(
       `http://localhost:4000/shop/item/${itemId}`,
 
@@ -126,9 +130,10 @@ test("for successful deletion", async () => {
         },
       }
     );
+    console.log(itemId)
 
     expect(response.status).toBe(200);
-    expect(response.data.success).toBe(true);
-  } catch (error) {}
+    expect(response.data.message).toBe("Shop item deleted successfully");
+  } catch (error) {console.log(error)}
 });
 
